@@ -1,31 +1,52 @@
-import { PrismaClient, Song, Artist } from '@prisma/client';
+import { PrismaClient, Product, Sku, Attribute, Price } from '@prisma/client';
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const songs = await prisma.song.findMany({
-    include: { artist: { include: { songs: true } } },
+  const products = await prisma.product.findMany({
+    include: {
+      variants: { include: { attributes: true, prices: true } },
+    },
   });
 
   return {
     props: {
-      songs,
+      products,
     },
   };
 }
 
 export default ({
-  songs,
+  products,
 }: {
-  songs: (Song & {
-    artist: Artist & {
-      songs: Song[];
-    };
+  products: (Product & {
+    variants: (Sku & {
+      attributes: Attribute[];
+      prices: Price[];
+    })[];
   })[];
 }) => (
   <ul>
-    {songs.map((song) => (
-      <li key={song.id}>
-        {song.name} by {song.artist.name}
+    {products.map((product) => (
+      <li key={product.id}>
+        {product.name}: {product.description}
+        <ul>
+          {product.variants.map((sku) => (
+            <li key={sku.id}>
+              Attributes:{' '}
+              <span>
+                {sku.attributes.map((attr) => `${attr.key}: ${attr.value} | `)}
+                Inventory: {sku.inventoryCount}
+              </span>
+              <ul>
+                {sku.prices.map((price) => (
+                  <li key={price.id}>
+                    Price: {price.amount} {price.currency}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
       </li>
     ))}
   </ul>

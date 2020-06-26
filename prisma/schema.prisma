@@ -7,15 +7,33 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Song {
-  id       Int     @default(autoincrement()) @id
-  name     String
-  artist   Artist? @relation(fields: [artistId], references: [id])
-  artistId Int?
+model Attribute {
+  id    Int    @default(autoincrement()) @id
+  key   String
+  value String
+  skus  Sku[]  @relation(references: [id])
 }
 
-model Artist {
-  id    Int    @default(autoincrement()) @id
-  name  String @unique
-  songs Song[]
+model Price {
+  id       Int    @default(autoincrement()) @id
+  currency String
+  amount   Int
+  skus     Sku[]  @relation(references: [id])
+}
+
+model Sku {
+  id             Int         @default(autoincrement()) @id
+  attributes     Attribute[] @relation(references: [id])
+  image          String
+  inventoryCount Int?
+  prices         Price[]     @relation(references: [id])
+  product        Product     @relation(fields: [productId], references: [id])
+  productId      Int
+}
+
+model Product {
+  id          Int     @default(autoincrement()) @id
+  name        String
+  description String?
+  variants    Sku[]
 }

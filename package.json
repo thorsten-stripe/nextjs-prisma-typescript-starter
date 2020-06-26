@@ -9,6 +9,8 @@
     "prisma:studio": "prisma studio --experimental",
     "prisma:db-save": "prisma migrate save --experimental",
     "prisma:db-up": "prisma migrate up --experimental",
+    "prisma:db-clean": "sqlite3 prisma/dev.db \"delete from _Migration\"",
+    "make-db-changes": "yarn prisma:db-save && yarn prisma:db-up && yarn prisma:db-clean",
     "prisma:generate": "prisma generate",
     "postinstall": "prisma generate"
   },
