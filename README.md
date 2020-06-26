@@ -1,8 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js TypeScript starter with Prisma Client and SQLite DB
+
+This starter uses `getStaticProps` to retrieve product and pricing information at build time from our SQLite DB via the Prisma client.
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -12,9 +22,19 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
 ## Learn More
+
+### Prisma
+
+To learn more about Prisma, take a look at the following resources:
+
+- [Quickstart](https://www.prisma.io/docs/getting-started/quickstart-typescript)
+- [Data modeling with Prisma](https://www.prisma.io/docs/understand-prisma/data-modeling#data-modeling-with-prisma)
+- [Prisma schema](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/)
+
+### Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
