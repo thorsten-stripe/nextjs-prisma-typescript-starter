@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
 import { PrismaClient, Product, Sku, Attribute, Price } from '@prisma/client';
@@ -68,5 +69,20 @@ export default function ProductPage({
     return <Error statusCode={404} />;
   }
 
-  return <pre>{JSON.stringify(product, null, 2)}</pre>;
+  return (
+    <>
+      <nav>
+        <Link href="/">
+          <a>Home</a>
+        </Link>
+        {' | '}
+        <Link href="/products">
+          <a>All products</a>
+        </Link>
+      </nav>
+      <h2>{product.name}</h2>
+      <p>{product.description}</p>
+      <pre>{JSON.stringify(product, null, 2)}</pre>
+    </>
+  );
 }

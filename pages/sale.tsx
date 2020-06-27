@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { PrismaClient, Product, Sku } from '@prisma/client';
 
 export async function getStaticProps() {
@@ -26,4 +27,28 @@ export default ({
   products: (Product & {
     variants: Sku[];
   })[];
-}) => <pre>{JSON.stringify(products, null, 2)}</pre>;
+}) => (
+  <>
+    <nav>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
+      {' | '}
+      <Link href="/products">
+        <a>All products</a>
+      </Link>
+    </nav>
+    <h2>Products on sale</h2>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>
+          <Link href={`/products/${product.id}`}>
+            <a>
+              {product.name}: {product.description}
+            </a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </>
+);

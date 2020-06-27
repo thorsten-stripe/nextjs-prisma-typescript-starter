@@ -28,25 +28,27 @@ export default ({
     variants: Sku[];
   })[];
 }) => (
-  <ul>
-    {products.map((product) => (
-      <li key={product.id}>
-        <Link href={`/products/${product.id}`}>
-          <a>
-            {product.name}: {product.description}
-          </a>
-        </Link>
-      </li>
-    ))}
-    <li key="sale">
+  <>
+    <nav>
       <Link href="/sale">
         <a>Sale</a>
       </Link>
-    </li>
-    <li key="all-products">
-      <Link href="products">
+      {' | '}
+      <Link href="/products">
         <a>All products</a>
       </Link>
-    </li>
-  </ul>
+    </nav>
+    <h2>Home | Featured products</h2>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>
+          <Link href={`/products/${product.id}`}>
+            <a>
+              {product.name}: {product.description}
+            </a>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </>
 );

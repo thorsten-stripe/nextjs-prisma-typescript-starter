@@ -26,33 +26,47 @@ export default ({
     })[];
   })[];
 }) => (
-  <ul>
-    {products.map((product) => (
-      <li key={product.id}>
-        <Link href={`/products/${product.id}`}>
-          <a>
-            {product.name}: {product.description}
-          </a>
-        </Link>
-        <ul>
-          {product.variants.map((sku) => (
-            <li key={sku.id}>
-              Attributes:{' '}
-              <span>
-                {sku.attributes.map((attr) => `${attr.key}: ${attr.value} | `)}
-                Inventory: {sku.inventoryCount ?? 'infinite'}
-              </span>
-              <ul>
-                {sku.prices.map((price) => (
-                  <li key={price.id}>
-                    Price: {price.amount} {price.currency}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </li>
-    ))}
-  </ul>
+  <>
+    <nav>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
+      {' | '}
+      <Link href="/sale">
+        <a>Sale</a>
+      </Link>
+    </nav>
+    <h2>All Products</h2>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>
+          <Link href={`/products/${product.id}`}>
+            <a>
+              {product.name}: {product.description}
+            </a>
+          </Link>
+          <ul>
+            {product.variants.map((sku) => (
+              <li key={sku.id}>
+                Attributes:{' '}
+                <span>
+                  {sku.attributes.map(
+                    (attr) => `${attr.key}: ${attr.value} | `
+                  )}
+                  Inventory: {sku.inventoryCount ?? 'infinite'}
+                </span>
+                <ul>
+                  {sku.prices.map((price) => (
+                    <li key={price.id}>
+                      Price: {price.amount} {price.currency}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </>
 );
