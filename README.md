@@ -2,6 +2,11 @@
 
 This starter uses `getStaticProps` to retrieve product and pricing information at build time from our SQLite DB via the Prisma client.
 
+## Demo
+
+- [Vercel](https://nextjs-prisma-typescript-starter.thorwebdev.vercel.app/)
+- [CodeSandbox](https://codesandbox.io/s/github/thorsten-stripe/nextjs-prisma-typescript-starter)
+
 ## Getting Started
 
 First, install the dependencies:
@@ -45,6 +50,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/thorsten-stripe/nextjs-prisma-typescript-starter)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
