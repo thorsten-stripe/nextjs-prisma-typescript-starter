@@ -1,12 +1,18 @@
-import { PrismaClient, Product, Sku, Attribute, Price } from '@prisma/client';
+import Link from 'next/link';
+import { PrismaClient, Product, Sku } from '@prisma/client';
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const products = await prisma.product.findMany({
+  const category = await prisma.category.findOne({
+    where: { name: 'Featured' },
     include: {
-      variants: { include: { attributes: true, prices: true } },
+      products: {
+        take: 10,
+        include: { variants: { take: 1 } },
+      },
     },
   });
+  const products = category.products;
 
   return {
     props: {
@@ -19,35 +25,28 @@ export default ({
   products,
 }: {
   products: (Product & {
-    variants: (Sku & {
-      attributes: Attribute[];
-      prices: Price[];
-    })[];
+    variants: Sku[];
   })[];
 }) => (
   <ul>
     {products.map((product) => (
       <li key={product.id}>
-        {product.name}: {product.description}
-        <ul>
-          {product.variants.map((sku) => (
-            <li key={sku.id}>
-              Attributes:{' '}
-              <span>
-                {sku.attributes.map((attr) => `${attr.key}: ${attr.value} | `)}
-                Inventory: {sku.inventoryCount}
-              </span>
-              <ul>
-                {sku.prices.map((price) => (
-                  <li key={price.id}>
-                    Price: {price.amount} {price.currency}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
+        <Link href={`/products/${product.id}`}>
+          <a>
+            {product.name}: {product.description}
+          </a>
+        </Link>
       </li>
     ))}
+    <li key="sale">
+      <Link href="/sale">
+        <a>Sale</a>
+      </Link>
+    </li>
+    <li key="all-products">
+      <Link href="products">
+        <a>All products</a>
+      </Link>
+    </li>
   </ul>
 );

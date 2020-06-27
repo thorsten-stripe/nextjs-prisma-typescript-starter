@@ -31,9 +31,16 @@ model Sku {
   productId      Int
 }
 
+model Category {
+  id       Int       @default(autoincrement()) @id
+  name     String    @unique
+  products Product[] @relation(references: [id])
+}
+
 model Product {
-  id          Int     @default(autoincrement()) @id
+  id          Int        @default(autoincrement()) @id
   name        String
   description String?
   variants    Sku[]
+  categories  Category[] @relation(references: [id])
 }
