@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "gcp-build": "prisma generate && next build",
+    "start": "next start -p $PORT",
+    "deploy": "gcloud app deploy --project=next-prisma-typescript-starter",
     "prisma:studio": "prisma studio --experimental",
     "prisma:db-save": "prisma migrate save --experimental",
     "prisma:db-up": "prisma migrate up --experimental",
